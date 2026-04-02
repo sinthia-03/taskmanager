@@ -14,8 +14,7 @@ class Tmappbar extends StatelessWidget implements PreferredSizeWidget {
         children: [
           CircleAvatar(
             radius: 24,
-           backgroundImage: NetworkImage(
-             profilePic
+           backgroundImage: NetworkImage('https://blog.photofeeler.com/wp-content/uploads/2017/09/instagram-profile-picture-maker.jpg'
            ),
           ),
           SizedBox(width: 10,),
