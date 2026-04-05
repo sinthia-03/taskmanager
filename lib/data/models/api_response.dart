@@ -8,6 +8,6 @@ class ApiResponse {
     required this.responseCode,
     required this.responseData,
     required this.isSuccess,
-     this.errorMessage,
+    this.errorMessage,
   });
 }

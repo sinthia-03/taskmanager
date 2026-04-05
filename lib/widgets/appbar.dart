@@ -14,16 +14,16 @@ class Tmappbar extends StatelessWidget implements PreferredSizeWidget {
         children: [
           CircleAvatar(
             radius: 24,
-           backgroundImage: NetworkImage('https://blog.photofeeler.com/wp-content/uploads/2017/09/instagram-profile-picture-maker.jpg'
-           ),
+            backgroundImage: NetworkImage('https://blog.photofeeler.com/wp-content/uploads/2017/09/instagram-profile-picture-maker.jpg'
+            ),
           ),
           SizedBox(width: 10,),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text('${AuthController.userModel!.firstName} ${AuthController.userModel!.lastName}',
-              style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                color: Colors.white),
+                style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                    color: Colors.white),
               ),
               Text(AuthController.userModel!.email,
                 style: Theme.of(context).textTheme.bodySmall!.copyWith(
@@ -35,9 +35,9 @@ class Tmappbar extends StatelessWidget implements PreferredSizeWidget {
           )
         ],
       ),
-        actions: [
-          IconButton(onPressed: (){},
-    icon:Icon(Icons.logout,color: Colors.white,))
+      actions: [
+        IconButton(onPressed: (){},
+            icon:Icon(Icons.logout,color: Colors.white,))
       ],
     );
   }

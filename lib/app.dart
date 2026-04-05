@@ -10,10 +10,10 @@ class TaskManagerApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
         textTheme: TextTheme(
-          titleLarge: TextStyle(
-            fontSize: 28,
-            fontWeight: FontWeight.w600
-          )
+            titleLarge: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.w600
+            )
         ),
 
         inputDecorationTheme: InputDecorationTheme(
@@ -24,21 +24,21 @@ class TaskManagerApp extends StatelessWidget {
             borderSide: BorderSide.none,
           ),
           border: OutlineInputBorder(
-            borderSide: BorderSide.none
+              borderSide: BorderSide.none
           ),
         ),
 
         filledButtonTheme: FilledButtonThemeData(
-          style: FilledButton.styleFrom(
-            backgroundColor: Appcolors.pcolor,
+            style: FilledButton.styleFrom(
+                backgroundColor: Appcolors.pcolor,
                 fixedSize:Size.fromWidth(double.maxFinite),
-          padding: EdgeInsets.symmetric(vertical: 12),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
+                padding: EdgeInsets.symmetric(vertical: 12),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
 
-          )
+                )
 
-          )
+            )
         ),
       ),
       home:SplashScreen(),

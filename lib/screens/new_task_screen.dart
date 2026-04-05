@@ -21,12 +21,12 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
             child: SizedBox(
               height: 90,
               child: ListView.separated(
-                scrollDirection: Axis.horizontal,
+                  scrollDirection: Axis.horizontal,
                   itemBuilder: (context,index){
-                return TaskCountByStatus(title: 'New', count: 10,);
-              },
+                    return TaskCountByStatus(title: 'New', count: 10,);
+                  },
                   separatorBuilder:(context,index){
-                return SizedBox(width: 4,);
+                    return SizedBox(width: 4,);
                   }, itemCount: 4),
             ),
 
@@ -37,14 +37,14 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
               return TaskCard();
             },
                 separatorBuilder: (context,inedx){
-              return Divider();
+                  return Divider();
                 },
                 itemCount: 10),
           ),
 
         ],
       ),
-      );
+    );
   }
 }
 

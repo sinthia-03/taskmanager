@@ -44,12 +44,12 @@ class _ForgetPasswordOTPVarificationState extends State<ForgetPasswordOTPVarific
                 onCompleted: (pin) => print('PIN: $pin'),
                 onChanged: (value) => print('Changed: $value'),
                 theme: MaterialPinTheme(
-                  shape: MaterialPinShape.outlined,
-                  cellSize: Size(40, 40),
-                  borderRadius: BorderRadius.circular(7),
-                  completeFillColor: Colors.white,
-                  focusedBorderColor: Appcolors.pcolor,
-                  filledBorderColor: Colors.transparent
+                    shape: MaterialPinShape.outlined,
+                    cellSize: Size(40, 40),
+                    borderRadius: BorderRadius.circular(7),
+                    completeFillColor: Colors.white,
+                    focusedBorderColor: Appcolors.pcolor,
+                    filledBorderColor: Colors.transparent
 
                 ),
 

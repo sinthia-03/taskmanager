@@ -20,9 +20,9 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
-   final TextEditingController _emailController = TextEditingController();
-   final TextEditingController _passwordController = TextEditingController();
-   bool isLoading = false;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  bool isLoading = false;
   Future <void>_signIn() async{
     Map<String,dynamic>requestBody =
     {
@@ -30,8 +30,6 @@ class _LoginScreenState extends State<LoginScreen> {
       'password': _passwordController.text,
 
     };
-
-
     setState(() {
       isLoading = true;
     });
@@ -46,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
     });
     if(response.isSuccess) {
       UserModel model = UserModel.fromJson(response.responseData['data']);
-      String accessToken = response.responseData['tpken'];
+      String accessToken = response.responseData['token'];
 
       AuthController.saveUserData(model, accessToken);
 
@@ -85,7 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 SizedBox(height: 25),
                 TextFormField(
-                  controller: _emailController,
+                    controller: _emailController,
                     validator: (value){
                       if(value == null || value.isEmpty){
                         return 'Please Enter email';
@@ -134,7 +132,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           style: TextStyle(color: Colors.grey),
                         ),
                       ),
-            
+
                       RichText(
                         text: TextSpan(
                           text: "Don't have an account?",

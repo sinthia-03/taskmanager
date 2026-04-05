@@ -38,12 +38,12 @@ class _MainNaviScreenState extends State<MainNaviScreen> {
         },
 
         destinations: const [
-        NavigationDestination(icon: Icon(Icons.task), label: 'New'),
-        NavigationDestination(icon: Icon(Icons.refresh), label: 'Progress'),
-        NavigationDestination(icon: Icon(Icons.task_alt_outlined), label: 'Compiled'),
-        NavigationDestination(icon: Icon(Icons.cancel), label: 'Cancel')
-        
-      ],),
+          NavigationDestination(icon: Icon(Icons.task), label: 'New'),
+          NavigationDestination(icon: Icon(Icons.refresh), label: 'Progress'),
+          NavigationDestination(icon: Icon(Icons.task_alt_outlined), label: 'Compiled'),
+          NavigationDestination(icon: Icon(Icons.cancel), label: 'Cancel')
+
+        ],),
     );
   }
 }

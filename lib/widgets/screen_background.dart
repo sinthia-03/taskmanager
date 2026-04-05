@@ -10,9 +10,9 @@ class ScreenBackground extends StatelessWidget {
     return Stack(
       children: [
         SvgPicture.asset(AssetPaths.backgroundSVG,
-        width: double.maxFinite,
-        height: double.maxFinite,
-        fit: BoxFit.cover,),
+          width: double.maxFinite,
+          height: double.maxFinite,
+          fit: BoxFit.cover,),
         SafeArea(child: child),
       ],
     );

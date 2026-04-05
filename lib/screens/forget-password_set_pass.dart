@@ -37,19 +37,19 @@ class _ForgetPasswordSetPasswordState extends State<ForgetPasswordSetPassword> {
               ),
               SizedBox(height: 10,),
               Text("Password Should be more than 6 letter and combination of numbers",
-              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                color: Colors.grey
-              )),
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                      color: Colors.grey
+                  )),
               SizedBox(height: 25),
               TextFormField(
                   obscureText: true,
                   decoration:
-              InputDecoration(hintText: 'Password')),
+                  InputDecoration(hintText: 'Password')),
               SizedBox(height: 10,),
               TextFormField(
-                obscureText: true,
+                  obscureText: true,
                   decoration:
-              InputDecoration(hintText: ' Conform Password')),
+                  InputDecoration(hintText: ' Conform Password')),
               SizedBox(height: 10),
               FilledButton(
                 onPressed: () {

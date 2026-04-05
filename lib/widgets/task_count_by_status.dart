@@ -13,7 +13,7 @@ class TaskCountByStatus extends StatelessWidget {
         child: Column(
           children: [
             Text(count.toString(),
-            style: Theme.of(context).textTheme.titleLarge),
+                style: Theme.of(context).textTheme.titleLarge),
             Text(title),
           ],
         ),

@@ -18,30 +18,30 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _firstNemeController = TextEditingController();
+  final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastnameController = TextEditingController();
   final TextEditingController _mobileController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
- bool isLoading = false;
+  bool isLoading = false;
 
- _clearTextField(){
-   _emailController.clear();
-   _firstNemeController.clear();
-   _lastnameController.clear();
-   _mobileController.clear();
-   _passwordController.clear();
- }
+  _clearTextField(){
+    _emailController.clear();
+    _firstNameController.clear();
+    _lastnameController.clear();
+    _mobileController.clear();
+    _passwordController.clear();
+  }
 
   Future <void>_signUp() async{
     Map<String,dynamic>requestBody =
-        {
-          'email': _emailController.text,
-          'firstName': _firstNemeController.text,
-          'lastName': _lastnameController.text,
-          'mobile': _mobileController.text,
-          'password': _passwordController.text,
+    {
+      'email': _emailController.text,
+      'firstName': _firstNameController.text,
+      'lastName': _lastnameController.text,
+      'mobile': _mobileController.text,
+      'password': _passwordController.text,
 
-        };
+    };
 
 
     setState(() {
@@ -50,18 +50,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
     final ApiResponse response = await ApiCaller.PostRequest(
       URL: Urls.SignUpURL,
-    body: requestBody,
+      body: requestBody,
     );
 
     setState(() {
       isLoading = false;
     });
     if(response.isSuccess)
-      {
-        _clearTextField();
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Sign up success..')));
+    {
+      _clearTextField();
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Sign up success..')));
 
-      }else{
+    }else{
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Somthing wrong...!')));
 
     }
@@ -100,7 +100,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 SizedBox(height: 10,),
                 TextFormField(
-                  controller: _firstNemeController,
+                  controller: _firstNameController,
                   decoration: InputDecoration(
                       hintText: 'First name'
                   ),
@@ -139,15 +139,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       return 'Please Enter Phone Number';
                     }
                     else if(value.length != 11)
-                      {
-                        return 'please enter correct phone number';
-                      }
+                    {
+                      return 'please enter correct phone number';
+                    }
                     else{
                       return null;
                     }
                   },
                 ),
-            
+
                 SizedBox(height: 10,),
                 TextFormField(
                   controller: _passwordController,
@@ -186,7 +186,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   )
                   ),
                 )
-            
+
               ],
             ),
           ),
