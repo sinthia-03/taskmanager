@@ -13,7 +13,8 @@ class ApiCaller {
       _logRequest(URL);
 
       Uri uri = Uri.parse(URL);
-      Response response = await get(uri, headers: {'token': AuthController.accessToken ?? ''});
+      Response response = await get(uri,
+          headers: {'token': AuthController.accessToken ?? ''});
 
       _logger.i(response.body);
       if (response.statusCode == 200) {
@@ -26,7 +27,7 @@ class ApiCaller {
         return ApiResponse(
           responseCode: response.statusCode,
           responseData: jsonDecode(response.body),
-          isSuccess: true,
+          isSuccess: false,
         );
       }
     } catch (c) {
