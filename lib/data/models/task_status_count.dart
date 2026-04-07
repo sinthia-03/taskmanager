@@ -11,5 +11,4 @@ class TaskStatusCountModel {
         status: jsonData['_id'],
         count: jsonData['sum']);
   }
-
 }

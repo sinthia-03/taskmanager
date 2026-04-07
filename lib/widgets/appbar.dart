@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:taskmanager/controller/auth_controller.dart';
 
-class Tmappbar extends StatelessWidget implements PreferredSizeWidget {
-  const Tmappbar({super.key});
+class TmAppbar extends StatelessWidget implements PreferredSizeWidget {
+  const TmAppbar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,14 +14,16 @@ class Tmappbar extends StatelessWidget implements PreferredSizeWidget {
         children: [
           CircleAvatar(
             radius: 24,
-            backgroundImage: NetworkImage('https://blog.photofeeler.com/wp-content/uploads/2017/09/instagram-profile-picture-maker.jpg'
+            backgroundImage: NetworkImage(
+              profilePic
             ),
           ),
           SizedBox(width: 10,),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('${AuthController.userModel!.firstName} ${AuthController.userModel!.lastName}',
+              Text('${AuthController.userModel!.firstName}'
+                  ' ${AuthController.userModel!.lastName}',
                 style: Theme.of(context).textTheme.titleSmall!.copyWith(
                     color: Colors.white),
               ),

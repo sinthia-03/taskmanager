@@ -35,7 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
     });
 
     final ApiResponse response = await ApiCaller.PostRequest(
-      URL: Urls.LoginUrl,
+      URL: Urls.loginUrl,
       body: requestBody,
     );
 
@@ -46,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
       UserModel model = UserModel.fromJson(response.responseData['data']);
       String accessToken = response.responseData['token'];
 
-      AuthController.saveUserData(model, accessToken);
+       await AuthController.saveUserData(model, accessToken);
 
 
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>MainNaviScreen()));

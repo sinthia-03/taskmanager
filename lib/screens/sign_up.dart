@@ -49,7 +49,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     });
 
     final ApiResponse response = await ApiCaller.PostRequest(
-      URL: Urls.SignUpURL,
+      URL: Urls.signUpURL,
       body: requestBody,
     );
 
@@ -62,7 +62,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Sign up success..')));
 
     }else{
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Somthing wrong...!')));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Something wrong...!')));
 
     }
   }
