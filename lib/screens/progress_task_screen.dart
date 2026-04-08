@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:taskmanager/widgets/appbar.dart';
 import 'package:taskmanager/widgets/taskcard.dart';
 import '../data/models/task_model.dart';
-import '../services/api_caller.dart';
-import '../utilits/urls.dart';
+import '../providers/task_provider.dart';
+
+
 
 class ProgressTaskScreen extends StatefulWidget {
   const ProgressTaskScreen({super.key});
@@ -13,54 +15,47 @@ class ProgressTaskScreen extends StatefulWidget {
 }
 
 class _ProgressTaskScreenState extends State<ProgressTaskScreen> {
-   List<TaskModel> TaskList = [];
 
-  Future<void>getProgressTask()async {
-    final response = await ApiCaller.getRequest(URL:Urls.taskByStatusUrl('Progress'));
-    List<TaskModel> taskList = [];
-
-    if(response.isSuccess){
-      for(Map<String,dynamic>jsonData in response.responseData['data'])
-      {
-        taskList.add(TaskModel.fromJson(jsonData));
-      }
-      setState(() {
-        TaskList = taskList;
-      });
-
-    }else{
-      ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(response.responseData['data'])));
-    }
-  }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getProgressTask();
+
+    Future.microtask((){
+
+      final provider =  Provider.of<TaskProvider>(context,listen: false);
+
+      provider.fetachtaskByStatus('Progress');
+
+
+    });
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TmAppbar(),
-      body: ListView.separated(
-          itemCount: TaskList.length,
-        itemBuilder: (context,index)
-        {
-          return TaskCard(taskModel: TaskList[index],
-              cardColor: Colors.purple,
-              refreshParent: (){
+      body: Consumer<TaskProvider>(
+        builder: (context,taskProvider,_) {
+          return ListView.separated(
+              itemCount: taskProvider.progressTask.length,
+            itemBuilder: (context,index)
+            {
+              return TaskCard(taskModel: taskProvider.newTask[index],
+                  cardColor: Colors.purple,
+                  refreshParent: (){
+                  },
+              );
+            },
+            separatorBuilder: (context,index){
+                return SizedBox(
+                height: 4,
+                );
               },
-          );
-        },
-        separatorBuilder: (context,index){
-            return SizedBox(
-            height: 4,
-            );
-    },
 
-          ),
+              );
+        }
+      ),
     );
   }
 }

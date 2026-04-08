@@ -1,8 +1,10 @@
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:taskmanager/widgets/appbar.dart';
 import 'package:taskmanager/widgets/taskcard.dart';
 import '../data/models/task_model.dart';
+import '../providers/task_provider.dart';
 import '../services/api_caller.dart';
 import '../utilits/urls.dart';
 class CompliedTaskScreen extends StatefulWidget {
@@ -13,53 +15,47 @@ class CompliedTaskScreen extends StatefulWidget {
 }
 
 class _CompliedTaskScreenState extends State<CompliedTaskScreen> {
-  List<TaskModel> TaskList = [];
 
-  Future<void>getProgressTask()async {
-    final response = await ApiCaller.getRequest(URL:Urls.taskByStatusUrl('Completed'));
-
-    List<TaskModel> taskList = [];
-    if(response.isSuccess){
-      for(Map<String,dynamic>jsonData in response.responseData['data'])
-      {
-        taskList.add(TaskModel.fromJson(jsonData));
-      }
-      setState(() {
-        TaskList = taskList;
-      });
-
-    }else{
-      ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(response.responseData['data'])));
-    }
-  }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getProgressTask();
+    Future.microtask((){
+
+      final provider =  Provider.of<TaskProvider>(context,listen: false);
+
+      provider.fetachtaskByStatus('Completed');
+
+
+    });
+
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TmAppbar(),
-      body: ListView.separated(
-        itemCount: TaskList.length,
-        itemBuilder: (context,index)
-        {
-          return TaskCard(taskModel: TaskList[index],
-            cardColor: Colors.green,
-            refreshParent: (){},
-          );
-        },
-        separatorBuilder: (context,index){
-          return SizedBox(
-            height: 4,
-          );
-        },
+        body: Consumer<TaskProvider>(
+            builder: (context,taskProvider,_) {
+              return ListView.separated(
+                itemCount: taskProvider.completedTask.length,
+                itemBuilder: (context,index)
+                {
+                  return TaskCard(taskModel: taskProvider.newTask[index],
+                    cardColor: Colors.green,
+                    refreshParent: (){
+                    },
+                  );
+                },
+                separatorBuilder: (context,index){
+                  return SizedBox(
+                    height: 4,
+                  );
+                },
 
-      ),
+              );
+            }
+        )
     );
   }
 }

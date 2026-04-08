@@ -1,14 +1,12 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:taskmanager/controller/auth_controller.dart';
-import 'package:taskmanager/data/models/user_model.dart';
+import 'package:provider/provider.dart';
+import 'package:taskmanager/providers/auth_provider.dart';
 import 'package:taskmanager/screens/forget_password_email_varify.dart';
 import 'package:taskmanager/screens/main_navi_screen.dart';
 import 'package:taskmanager/screens/sign_up.dart';
 import 'package:taskmanager/utilits/appcolors.dart';
-import '../data/models/api_response.dart';
-import '../services/api_caller.dart';
-import '../utilits/urls.dart';
+import 'package:taskmanager/widgets/showsnackbar.dart';
 import '../widgets/screen_background.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -22,47 +20,29 @@ class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  bool isLoading = false;
-  Future <void>_signIn() async{
-    Map<String,dynamic>requestBody =
-    {
-      'email': _emailController.text,
-      'password': _passwordController.text,
-
-    };
-    setState(() {
-      isLoading = true;
-    });
-
-    final ApiResponse response = await ApiCaller.PostRequest(
-      URL: Urls.loginUrl,
-      body: requestBody,
-    );
-
-    setState(() {
-      isLoading = false;
-    });
-    if(response.isSuccess) {
-      UserModel model = UserModel.fromJson(response.responseData['data']);
-      String accessToken = response.responseData['token'];
-
-       await AuthController.saveUserData(model, accessToken);
-
-
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>MainNaviScreen()));
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Sign In success..!')));
-
-    }else{
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Somthing wrong...!')));
-
-    }
-  }
 
   void _onTabSignUP() {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => SignUpScreen()),
     );
+  }
+
+  Future<void> _signIn() async {
+    final authProvider = context.read<AuthProvider>();
+    final bool success = await authProvider.SignIn(
+      _emailController.text,
+      _passwordController.text,
+    );
+    if (success) {
+      showSnackbar(context, 'Login success....!');
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => MainNaviScreen()),
+      );
+    } else {
+      showSnackbar(context, authProvider.errorMwssage.toString());
+    }
   }
 
   @override
@@ -83,25 +63,24 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 SizedBox(height: 25),
                 TextFormField(
-                    controller: _emailController,
-                    validator: (value){
-                      if(value == null || value.isEmpty){
-                        return 'Please Enter email';
-                      }
-                      else{
-                        return null;
-                      }
-                    },
-                    decoration: InputDecoration(hintText: 'Email')),
+                  controller: _emailController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please Enter email';
+                    } else {
+                      return null;
+                    }
+                  },
+                  decoration: InputDecoration(hintText: 'Email'),
+                ),
                 SizedBox(height: 10),
                 TextFormField(
                   controller: _passwordController,
                   obscureText: true,
-                  validator: (value){
-                    if(value == null || value.isEmpty){
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
                       return 'Please Enter password';
-                    }
-                    else{
+                    } else {
                       return null;
                     }
                   },
@@ -110,10 +89,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(height: 10),
                 FilledButton(
                   onPressed: () {
-                    if(_formkey.currentState!.validate())
-                    {
+                    if (_formkey.currentState!.validate()) {
                       _signIn();
-
                     }
                   },
                   child: Icon(Icons.arrow_circle_right_outlined),
@@ -124,8 +101,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: [
                       TextButton(
                         onPressed: () {
-
-                          Navigator.push(context,MaterialPageRoute(builder: (context)=>ForgetPasswordEmailVarification()));
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  ForgetPasswordEmailVarification(),
+                            ),
+                          );
                         },
                         child: Text(
                           'Forget Password ?',
