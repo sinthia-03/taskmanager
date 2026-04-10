@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:taskmanager/data/models/task_model.dart';
+import 'package:taskmanager/providers/task_provider.dart';
 import 'package:taskmanager/utilits/urls.dart';
 import 'package:taskmanager/widgets/showsnackbar.dart';
 
-import '../services/api_caller.dart';
 
 class TaskCard extends StatefulWidget {
   final TaskModel taskModel;
@@ -21,33 +22,30 @@ class TaskCard extends StatefulWidget {
 }
 
 class _TaskCardState extends State<TaskCard> {
-
   Future<void> deleteTask() async {
-    final response = await ApiCaller.getRequest(
-      URL: Urls.deleteTaskUrl(widget.taskModel.id));
+   final taskProvider = context.read<TaskProvider>();
+   bool success = await taskProvider.deleteTask(widget.taskModel.id);
 
-    setState(()
-    {});
-    if (response.isSuccess) {
+    if (success) {
       showSnackbar(context,'Task Deleted');
-      widget.refreshParent();
+
       Navigator.pop(context);
-      showSnackbar(context, 'Task Status Updated');
     } else {
-      showSnackbar(context, response.responseData['Data']);
+      showSnackbar(context, taskProvider.errorMessage.toString());
     }
   }
-  Future<void> changeStatus(String status) async {
-    final response = await ApiCaller.getRequest(
-        URL: Urls.changeStatusUrl(widget.taskModel.id,status));
 
+  Future<void> changeStatus(String status) async {
+    final taskProvider = context.read<TaskProvider>();
+    bool success = await taskProvider.chnageTaskStatus(widget.taskModel.id, status);
     setState(()
     {});
-    if (response.isSuccess) {
+    if (success) {
+      Navigator.pop(context);
       showSnackbar(context,'Task Status updated');
-      widget.refreshParent();
+
     } else {
-      showSnackbar(context, response.responseData['Data']);
+      showSnackbar(context,taskProvider.errorMessage.toString());
     }
   }
 

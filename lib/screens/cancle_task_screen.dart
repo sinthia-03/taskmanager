@@ -23,14 +23,10 @@ class _CancleTaskScreenState extends State<CancleTaskScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Future.microtask((){
 
       final provider =  Provider.of<TaskProvider>(context,listen: false);
-
       provider.fetachtaskByStatus('cancelled');
 
-
-    });
   }
   @override
   Widget build(BuildContext context) {

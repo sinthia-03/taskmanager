@@ -52,9 +52,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
                         return SizedBox(width: 4,);
                       },),
                 ),
-
               ),
-
               Expanded(
                 child: ListView.separated(
               itemCount: taskprovider.newTask.length,
@@ -64,7 +62,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
                     refreshParent: () {
                     },);
                 },
-                    separatorBuilder: (context,inedx){
+                  separatorBuilder: (context,inedx){
                       return Divider();
                     },
                 )
