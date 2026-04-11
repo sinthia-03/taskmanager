@@ -6,8 +6,6 @@ import 'package:taskmanager/utilits/urls.dart';
 import 'package:taskmanager/widgets/appbar.dart';
 import 'package:taskmanager/widgets/screen_background.dart';
 
-import '../data/models/api_response.dart';
-import '../services/api_caller.dart';
 class AddNewTask extends StatefulWidget {
   const AddNewTask({super.key});
 

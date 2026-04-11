@@ -15,6 +15,7 @@ class AuthProvider extends ChangeNotifier{
   static final Logger _logger = Logger();
    String  ? errorMwssage;
   bool isLoading = false;
+  bool isLoggedIn= false;
 
 
   static String ? accessToken;
@@ -26,6 +27,7 @@ class AuthProvider extends ChangeNotifier{
     await sharedPreferences.setString(_userModelKey, jsonEncode(model.toJson()));
     accessToken = token;
     userModel = model;
+    isLoggedIn = true;
     _logger.i(accessToken);
     _logger.i(userModel);
     notifyListeners();
@@ -40,6 +42,10 @@ class AuthProvider extends ChangeNotifier{
       accessToken = token;
       String ? userData = sharedPreferences.getString(_userModelKey);
       userModel = UserModel.fromJson(jsonDecode(userData!));
+      isLoggedIn = true;
+    }
+    else{
+      isLoggedIn = false;
     }
     _logger.i(token);
     _logger.i(userModel);
@@ -94,7 +100,7 @@ class AuthProvider extends ChangeNotifier{
       await saveUserData(model, accessToken);
       return true;
     }else{
-      errorMwssage = response.responseData['data'];
+      errorMwssage = response.responseData.toString();
       notifyListeners();
       return false;
     }

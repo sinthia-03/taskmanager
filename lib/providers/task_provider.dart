@@ -124,7 +124,6 @@ class TaskProvider extends ChangeNotifier{
 
     }
 
-
   }
 
   Future<bool> addTask(String title,String description) async{
